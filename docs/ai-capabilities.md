@@ -261,6 +261,329 @@ const eqAdvice = await getEQSuggestions({
 });
 ```
 
+---
+
+### 6. Voice-Controlled DJ Assistant 🎤
+**Natural language DJ commands and queries**
+
+**What it does:**
+- Understands natural language commands and questions
+- Provides context-aware DJ assistance
+- Parses commands into actionable parameters
+- Maintains conversation history
+- Adapts responses to DJ experience level
+
+**Supported interaction types:**
+- **Information Requests**: "What BPM is this?", "What key am I in?"
+- **Mixing Suggestions**: "What should I play next?", "How do I transition?"
+- **Direct Commands**: "Load a techno track", "Add a filter effect"
+- **Learning Requests**: "How do I do a bass swap?", "Teach me harmonic mixing"
+- **Warnings/Alerts**: "The tracks aren't in key", "BPM jump too big"
+- **Playlist Management**: "Create a sunset playlist", "Sort by energy"
+- **Track Requests**: "Play something energetic", "Find tracks in A minor"
+
+**Features:**
+- Confidence scoring (0-100%)
+- Action type classification
+- Command parameter extraction
+- Suggested follow-up actions
+- Conversational responses
+
+**Use case:**
+```
+Input: "What should I play after this techno track to build energy?"
+Output:
+- Type: Suggestion
+- Response: "To build energy from your current techno track, I'd recommend
+  moving to a faster BPM track (133-138) with higher energy. Look for tracks
+  in compatible keys..."
+- Suggested Actions: ["Search for 135 BPM techno", "Filter by energy level 8+"]
+- Confidence: 95%
+```
+
+---
+
+### 7. AI Transition Generator ⚡
+**Creative step-by-step transition sequences**
+
+**What it does:**
+- Generates complete transition choreography between two tracks
+- Provides timeline-based execution steps
+- Includes specific parameter values
+- Tailored to transition style and length
+
+**Transition Styles:**
+- **Smooth**: Seamless blends, gentle EQ, long overlaps
+- **Energetic**: Quick cuts, dynamic effects, anticipation
+- **Dramatic**: Big impacts, creative effects, surprise elements
+- **Creative**: Experimental, genre-blending, innovative
+- **Minimal**: Clean, precise, technical
+
+**Transition Lengths:**
+- Quick (8-16 bars)
+- Medium (16-32 bars)
+- Long (32-64 bars)
+- Extended (64+ bars)
+
+**Features:**
+- Creative transition names
+- Step-by-step timeline with timestamps
+- Deck-specific actions (A, B, both)
+- Exact parameter values (volume, EQ, crossfader, effects)
+- Key moment highlights
+- Pro tips for execution
+- Difficulty ratings
+- Visual cues for waveform watching
+
+**Use case:**
+```
+Input:
+- From: "Caribou - Can't Do Without You" (124 BPM, G)
+- To: "Bicep - Glue" (128 BPM, Am)
+- Style: Creative
+- Length: Medium
+
+Output:
+- Name: "Filter Rise to Harmonic Drop"
+- Duration: 28 bars
+- Steps: 12 detailed actions with timing and parameters
+- Key Moments: "Bar 16: Full filter sweep", "Bar 24: Bass swap"
+- Difficulty: Intermediate
+```
+
+---
+
+### 8. Library Mood Detection 📚
+**Intelligent music library analysis and organization**
+
+**What it does:**
+- Analyzes entire music collections
+- Categorizes tracks by mood, energy, and vibe
+- Generates auto-playlists
+- Provides collection insights and recommendations
+
+**Analysis Categories:**
+- Euphoric/Uplifting
+- Dark/Hypnotic
+- Groovy/Funky
+- Melancholic/Emotional
+- Aggressive/Hard
+- Chill/Ambient
+- Tribal/Percussive
+- Tech/Minimal
+- Progressive/Building
+- Classic/Timeless
+
+**Features:**
+- Energy distribution analysis (low/medium/high %)
+- Genre diversity breakdown
+- BPM range per category
+- Dominant keys identification
+- Auto-generated playlists with use cases
+- Library insights (gaps, strengths, unique combinations)
+- Track count per mood
+- Playlist suggestions for different scenarios
+
+**Use case:**
+```
+Input: 150 tracks from your library
+Output:
+- Overview: "Techno-focused collection with strong dark/hypnotic presence"
+- Mood Categories: 8 detected with tracks sorted
+- Energy: 15% low, 45% medium, 40% high
+- Genre Mix: 60% Techno, 25% House, 15% Other
+- Suggested Playlists: "Dark Opening Set (12 tracks)",
+  "Peak Time Power (15 tracks)", etc.
+- Insights: "Strong 128-135 BPM range, consider adding more 140+ for variety"
+```
+
+---
+
+### 9. Intelligent Looping & Hot-Cue Suggestions 🎯
+**Performance-ready cue points and creative loops**
+
+**What it does:**
+- Suggests 8 optimal hot cue points per track
+- Recommends creative loop opportunities
+- Color-codes cues for visual organization
+- Tailors suggestions to DJ style
+
+**Hot Cue System:**
+- Color-coded by purpose (Red/Orange/Yellow/Green/Blue/Purple/Pink/White)
+- Essential cues: First Beat, Drop, Breakdown, Buildup, Outro
+- Optional cues: Vocals, Percussion, Special Moments
+- Position, name, purpose, and use case for each
+
+**Loop Types:**
+- **Standard**: 4-bar drums, 8-bar melodic, 16-bar phrases
+- **Creative**: 1-bar stutters, 2-bar vocals, 32-bar suspense
+- **Techniques**: Roll In, Echo Out, Layer, Extend, Chop
+
+**DJ Style Adaptation:**
+- Mixing: Practical cues for quick access
+- Performance: Creative loops and stutter points
+- Live Remix: Multiple short loops, vocal cuts
+- Turntablist: Scratching points, clean drums
+
+**Features:**
+- Track structure analysis
+- Performance tips
+- Mixing strategy using cues
+- Creative manipulation ideas
+- Quick setup guide for gigs
+- Loop difficulty ratings
+
+**Use case:**
+```
+Input:
+- Track: "Nina Kraviz - Ghetto Kraviz"
+- Genre: Techno
+- Style: Performance
+
+Output:
+- 8 Hot Cues: #1 First Kick (Red, 0:08), #2 Main Drop (Green, 1:32), etc.
+- 6 Loops: "4-bar Drum Loop" at breakdown, "1-bar Stutter" for effects, etc.
+- Structure: "Long intro (64 bars) → breakdown → buildup → drop → outro"
+- Performance Tips: "Use cue #3 for quick energy drops", etc.
+```
+
+---
+
+## Genre Knowledge Base
+
+DJ Glitch includes a comprehensive genre database covering 8 major genres with detailed information:
+
+**Genres Covered:**
+- Techno (120-150 BPM)
+- House (118-135 BPM)
+- Drum & Bass (160-180 BPM)
+- Trance (125-150 BPM)
+- Dubstep (130-145 BPM)
+- Hip-Hop (60-100 BPM)
+- Disco (110-130 BPM)
+- Ambient (60-90 BPM)
+
+**For Each Genre:**
+- BPM range (min/max/typical)
+- Common musical keys
+- Energy levels (1-10 scale)
+- Characteristics and sound design
+- Mixing tips and techniques
+- Common effects usage
+- Cultural context and history
+- Subgenres
+- Iconic artists
+- Compatible genres for mixing
+
+This knowledge enhances all AI prompts with genre-specific context.
+
+---
+
+## Music Theory Integration
+
+### Camelot Wheel
+- Complete harmonic mixing system
+- 24 keys (12 major, 12 minor) mapped to Camelot codes
+- Compatible key detection
+- Energy progression guidance (up/down/same)
+- Relationship analysis (perfect match, relative, adjacent)
+
+### BPM Compatibility
+- Percentage difference calculation
+- Pitch adjustment recommendations (±6% ideal, ±10% max)
+- Optimal sync BPM finder
+- Double/half-time relationship detection
+- Tempo compatibility advice
+
+### Key Estimation
+- Genre-based key suggestions
+- Mood-based key recommendations
+- Next key suggestions for energy flow
+
+---
+
+## Music API Integration
+
+### Spotify Web API ✅
+- Full OAuth token management
+- Track search with metadata
+- Audio features: BPM, key, energy, danceability, valence
+- Audio analysis for detailed breakdowns
+- AI-powered track recommendations
+- Playlist fetching
+- Pitch class to musical key conversion
+
+### SoundCloud API (Placeholder)
+- Integration ready for when API access available
+
+### Unified Service
+- Multi-platform music API service
+- Consistent interface across providers
+- Easy service switching
+
+---
+
+## Integration Guide
+
+### Using AI Flows in Your Code
+
+```typescript
+// Existing flows
+import { generateMoodBasedPlaylist } from '@/ai/flows/generate-mood-based-playlist';
+import { getAIAssistedMixingAdvice } from '@/ai/flows/ai-assisted-mixing';
+import { analyzeAlbumArt } from '@/ai/flows/analyze-album-art';
+import { getTrackRecommendations } from '@/ai/flows/track-recommendations';
+import { getEQSuggestions } from '@/ai/flows/audio-eq-analysis';
+
+// New flows
+import { voiceDJAssistant } from '@/ai/flows/voice-dj-assistant';
+import { generateTransition } from '@/ai/flows/generate-transitions';
+import { detectLibraryMood } from '@/ai/flows/library-mood-detection';
+import { getLoopHotcueSuggestions } from '@/ai/flows/loop-hotcue-suggestions';
+
+// Music theory utilities
+import { areKeysCompatible, calculateBPMCompatibility } from '@/ai/utils/music-theory';
+import { getGenreInfo, formatGenreContext } from '@/ai/knowledge/genre-database';
+
+// Music API
+import { musicAPI } from '@/lib/music-api';
+
+// Voice assistant
+const response = await voiceDJAssistant({
+  query: "What should I play next?",
+  currentContext: { currentTrack: "Track A", currentBpm: 130 }
+});
+
+// Generate transition
+const transition = await generateTransition({
+  fromTrack: "Track A",
+  toTrack: "Track B",
+  transitionStyle: "creative",
+  transitionLength: "medium"
+});
+
+// Library mood detection
+const analysis = await detectLibraryMood({
+  tracks: yourTrackList,
+  analysisDepth: "detailed"
+});
+
+// Loop and cue suggestions
+const cues = await getLoopHotcueSuggestions({
+  trackName: "Artist - Track",
+  genre: "Techno",
+  djStyle: "performance"
+});
+
+// Music theory
+const keyCompat = areKeysCompatible("Am", "C");
+const bpmCompat = calculateBPMCompatibility(128, 130);
+
+// Spotify integration
+const searchResults = await musicAPI.search("techno 130 bpm");
+const trackDetails = await musicAPI.getTrack("spotify:track:123");
+```
+
 ## Future Enhancements
 
 Potential additions:
@@ -270,8 +593,9 @@ Potential additions:
 - Automatic beatmatching suggestions
 - Set recording analysis and feedback
 - Crowd response prediction
-- Spotify/SoundCloud API integration for real track data
-- Voice-controlled DJ assistant
+- Apple Music API integration
+- YouTube Music integration
+- Beatport integration
 
 ---
 
