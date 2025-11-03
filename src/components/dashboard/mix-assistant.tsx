@@ -21,6 +21,10 @@ import { Separator } from '../ui/separator';
 const formSchema = z.object({
   currentTrack: z.string().min(1, 'Current track is required.'),
   nextTrack: z.string().min(1, 'Next track is required.'),
+  currentBpm: z.string().optional(),
+  nextBpm: z.string().optional(),
+  currentKey: z.string().optional(),
+  nextKey: z.string().optional(),
   djExperience: z.enum(['beginner', 'intermediate', 'expert']),
   userPreferences: z.string().optional(),
 });
@@ -35,6 +39,10 @@ export function MixAssistant() {
     defaultValues: {
       currentTrack: '',
       nextTrack: '',
+      currentBpm: '',
+      nextBpm: '',
+      currentKey: '',
+      nextKey: '',
       djExperience: 'beginner',
       userPreferences: '',
     },
@@ -44,7 +52,18 @@ export function MixAssistant() {
     setIsLoading(true);
     setAdvice(null);
     try {
-      const result = await getAIAssistedMixingAdvice(values);
+      // Convert BPM strings to numbers if provided
+      const input = {
+        currentTrack: values.currentTrack,
+        nextTrack: values.nextTrack,
+        currentBpm: values.currentBpm ? parseFloat(values.currentBpm) : undefined,
+        nextBpm: values.nextBpm ? parseFloat(values.nextBpm) : undefined,
+        currentKey: values.currentKey || undefined,
+        nextKey: values.nextKey || undefined,
+        djExperience: values.djExperience,
+        userPreferences: values.userPreferences,
+      };
+      const result = await getAIAssistedMixingAdvice(input);
       setAdvice(result);
     } catch (error) {
       console.error(error);
@@ -92,6 +111,62 @@ export function MixAssistant() {
                     <FormLabel>Next Track</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g., 'Justice - D.A.N.C.E.'" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* BPM and Key Inputs */}
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <FormField
+                control={form.control}
+                name="currentBpm"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs">Current BPM</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="120" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="currentKey"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs">Current Key</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Am" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="nextBpm"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs">Next BPM</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="128" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="nextKey"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs">Next Key</FormLabel>
+                    <FormControl>
+                      <Input placeholder="C" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,14 +223,77 @@ export function MixAssistant() {
         {advice && (
           <div className="mt-6 space-y-4">
             <Separator />
+
+            {/* Recommended Technique Banner */}
+            <div className="p-3 rounded-lg bg-accent/10 border border-accent/20">
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-1">Recommended Technique</h4>
+              <p className="text-lg font-bold text-accent">{advice.recommendedTechnique}</p>
+            </div>
+
+            {/* Analysis Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-primary flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  BPM Analysis
+                </h4>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap pl-4">{advice.bpmAnalysis}</p>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-accent flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-accent"></span>
+                  Key Compatibility
+                </h4>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap pl-4">{advice.keyCompatibility}</p>
+              </div>
+            </div>
+
+            {/* Energy Flow */}
             <div className="space-y-2">
-              <h3 className="font-semibold text-primary">Transition Advice</h3>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap font-code">{advice.transitionAdvice}</p>
+              <h4 className="text-sm font-semibold text-primary flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary"></span>
+                Energy Flow
+              </h4>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap pl-4">{advice.energyFlowAnalysis}</p>
             </div>
-             <div className="space-y-2">
-              <h3 className="font-semibold text-accent">Optimal Drop Points</h3>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap font-code">{advice.optimalDropPoints}</p>
+
+            {/* Mix Point */}
+            <div className="space-y-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+              <h4 className="text-sm font-semibold text-primary flex items-center gap-2">
+                <Sparkles className="h-4 w-4" />
+                Optimal Mix Point
+              </h4>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{advice.optimalMixPoint}</p>
             </div>
+
+            {/* Transition Advice */}
+            <div className="space-y-2">
+              <h4 className="text-sm font-semibold text-accent flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-accent"></span>
+                Step-by-Step Transition
+              </h4>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap pl-4">{advice.transitionAdvice}</p>
+            </div>
+
+            {/* EQ Suggestions */}
+            <div className="space-y-2">
+              <h4 className="text-sm font-semibold text-primary flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary"></span>
+                EQ Strategy
+              </h4>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap pl-4">{advice.eqSuggestions}</p>
+            </div>
+
+            {/* Effects (if provided) */}
+            {advice.effectsSuggestions && (
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-accent flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-accent"></span>
+                  Effects Suggestions
+                </h4>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap pl-4">{advice.effectsSuggestions}</p>
+              </div>
+            )}
           </div>
         )}
       </CardContent>

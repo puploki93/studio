@@ -20,15 +20,30 @@ export type GenerateMoodBasedPlaylistInput = z.infer<
   typeof GenerateMoodBasedPlaylistInputSchema
 >;
 
+const TrackSchema = z.object({
+  title: z.string().describe('The song title and artist (e.g., "Artist - Song Title")'),
+  bpm: z.number().describe('Beats per minute (typical range 60-180)'),
+  key: z.string().describe('Musical key (e.g., "Am", "C#", "Eb")'),
+  energy: z.number().min(1).max(10).describe('Energy level from 1 (calm) to 10 (intense)'),
+  genre: z.string().describe('Primary genre of the track'),
+});
+
 const GenerateMoodBasedPlaylistOutputSchema = z.object({
   playlistDescription: z
     .string()
     .describe(
-      'A description of the generated playlist, including the overall vibe and some example songs.'
+      'A description of the generated playlist, including the overall vibe, genre blend, and flow.'
     ),
   songs: z
+    .array(TrackSchema)
+    .describe('A list of tracks with detailed metadata that fit the specified mood or context.'),
+  energyCurve: z
+    .string()
+    .describe('Description of how energy flows through the playlist (e.g., "builds gradually", "peaks in middle")'),
+  genreBlend: z
     .array(z.string())
-    .describe('A list of song titles that fit the specified mood or context.'),
+    .describe('The genres blended in this playlist'),
+  avgBpm: z.number().describe('Average BPM of the playlist'),
 });
 export type GenerateMoodBasedPlaylistOutput = z.infer<
   typeof GenerateMoodBasedPlaylistOutputSchema
@@ -44,11 +59,25 @@ const prompt = ai.definePrompt({
   name: 'generateMoodBasedPlaylistPrompt',
   input: {schema: GenerateMoodBasedPlaylistInputSchema},
   output: {schema: GenerateMoodBasedPlaylistOutputSchema},
-  prompt: `You are a DJ that knows many songs. You will generate a playlist with songs that fit the mood or context.
+  prompt: `You are an expert DJ with deep knowledge of music theory, genres, and DJing techniques. You will generate a sophisticated playlist with detailed track metadata.
 
   Mood/Context: {{{mood}}}
 
-  Respond with a JSON object with a playlistDescription and songs field. The playlistDescription should be a description of the playlist as a whole including the vibe and maybe a few example songs. The songs field should be a list of songs that fit the mood or context, where each item in the list is just the song name. Return 10 songs.`,
+  Create a 10-track playlist that:
+  1. Blends complementary genres to match the mood
+  2. Has a thoughtful energy curve (flow) throughout
+  3. Considers BPM compatibility for smooth mixing
+  4. Includes harmonic key information for key mixing
+  5. Features real, popular songs that fit the context
+
+  IMPORTANT:
+  - Select tracks with BPMs that are mix-compatible (within ~10-20% of each other for smooth transitions)
+  - Choose keys that are harmonically compatible (use Camelot wheel principles when possible)
+  - Design an intentional energy curve (e.g., build up, plateau, wind down)
+  - Be specific with artist names and track titles
+  - Energy levels should flow naturally (avoid dramatic jumps unless the mood calls for it)
+
+  Respond with a complete JSON object including: playlistDescription, songs array (with title, bpm, key, energy, genre for each), energyCurve, genreBlend, and avgBpm.`,
 });
 
 const generateMoodBasedPlaylistFlow = ai.defineFlow(
@@ -57,7 +86,7 @@ const generateMoodBasedPlaylistFlow = ai.defineFlow(
     inputSchema: GenerateMoodBasedPlaylistInputSchema,
     outputSchema: GenerateMoodBasedPlaylistOutputSchema,
   },
-  async input => {
+  async (input: GenerateMoodBasedPlaylistInput) => {
     const {output} = await prompt(input);
     return output!;
   }

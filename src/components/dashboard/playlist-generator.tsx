@@ -97,23 +97,72 @@ export function PlaylistGenerator() {
         {playlist && (
           <div className="mt-6 space-y-4">
             <Separator />
+
+            {/* Playlist Overview */}
             <div className="space-y-2">
               <h3 className="font-semibold text-primary">Playlist Vibe</h3>
               <p className="text-sm text-muted-foreground">{playlist.playlistDescription}</p>
             </div>
+
+            {/* Genre Blend & Metrics */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <h4 className="text-xs font-semibold text-muted-foreground uppercase">Genre Blend</h4>
+                <div className="flex flex-wrap gap-1">
+                  {playlist.genreBlend.map((genre, index) => (
+                    <span key={index} className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">
+                      {genre}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-xs font-semibold text-muted-foreground uppercase">Average BPM</h4>
+                <p className="text-2xl font-bold text-accent">{Math.round(playlist.avgBpm)}</p>
+              </div>
+            </div>
+
+            {/* Energy Curve */}
+            <div className="space-y-2">
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase">Energy Flow</h4>
+              <p className="text-sm text-muted-foreground">{playlist.energyCurve}</p>
+            </div>
+
+            {/* Tracklist with Details */}
             <div className="space-y-2">
               <h3 className="font-semibold text-accent flex items-center gap-2">
                 <List />
                 Tracklist
               </h3>
-              <ul className="space-y-2">
+              <div className="space-y-2">
                 {playlist.songs.map((song, index) => (
-                  <li key={index} className="flex items-center gap-2 text-sm">
-                    <Music className="h-4 w-4 text-accent/80" />
-                    <span>{song}</span>
-                  </li>
+                  <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-accent/20 text-accent font-bold text-sm flex-shrink-0">
+                      {index + 1}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Music className="h-4 w-4 text-accent/80 flex-shrink-0" />
+                        <span className="font-medium text-sm truncate">{song.title}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <span className="font-semibold text-primary">{song.bpm} BPM</span>
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="font-semibold text-accent">Key: {song.key}</span>
+                        </span>
+                        <span className="flex items-center gap-1">
+                          Energy: <span className="font-semibold">{song.energy}/10</span>
+                        </span>
+                        <span className="px-2 py-0.5 bg-primary/10 text-primary rounded">
+                          {song.genre}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         )}
