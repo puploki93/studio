@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "album-art-1",
+      "description": "Abstract neon geometric shapes",
+      "imageUrl": "https://picsum.photos/seed/101/400/400",
+      "imageHint": "abstract neon"
+    },
+    {
+      "id": "album-art-2",
+      "description": "Cyberpunk cityscape at night",
+      "imageUrl": "https://picsum.photos/seed/102/400/400",
+      "imageHint": "cyberpunk city"
+    },
+    {
+      "id": "album-art-3",
+      "description": "Glitching digital screen",
+      "imageUrl": "https://picsum.photos/seed/103/400/400",
+      "imageHint": "glitch screen"
+    },
+    {
+      "id": "album-art-4",
+      "description": "Holographic audio waveform",
+      "imageUrl": "https://picsum.photos/seed/104/400/400",
+      "imageHint": "holographic waveform"
+    },
+    {
+      "id": "album-art-5",
+      "description": "DJ at a futuristic console",
+      "imageUrl": "https://picsum.photos/seed/105/400/400",
+      "imageHint": "futuristic dj"
+    },
+    {
+      "id": "album-art-6",
+      "description": "Neon sound waves",
+      "imageUrl": "https://picsum.photos/seed/106/400/400",
+      "imageHint": "neon sound"
+    }
+  ]
+}
