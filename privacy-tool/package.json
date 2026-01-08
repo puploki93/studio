@@ -1,0 +1,36 @@
+{
+  "name": "mac-privacy-tool",
+  "version": "1.0.0",
+  "description": "Privacy tool for macOS to protect MAC address and hardware serial number",
+  "main": "dist/index.js",
+  "bin": {
+    "privacy-tool": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "install-global": "npm run build && npm link",
+    "uninstall-global": "npm unlink -g"
+  },
+  "keywords": [
+    "privacy",
+    "mac-address",
+    "serial-number",
+    "macos",
+    "security"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "os": [
+    "darwin"
+  ]
+}
